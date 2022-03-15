@@ -1,6 +1,5 @@
 import pygame
 import random
-import math
 
 pygame.init()
 
@@ -130,8 +129,8 @@ class Move:
         self.ally = ally
         self.enemy = enemy
 
-        effectiveness = type_effectiveness[types[ally[2]]][types[enemy[2]]] * \
-                        type_effectiveness[types[ally[2]]][types[enemy[3]]]
+        effectiveness = type_effectiveness[types[ally[2]]][types[enemyList[2]]] * \
+                        type_effectiveness[types[ally[2]]][types[enemyList[3]]]
 
         if ally[3] == "physical":
             moveDamage = True
@@ -156,7 +155,7 @@ class Move:
         else:
             stab = 1
         if moveDamage:
-            damage = ((((((2 * allyList[13]) / 5) + 2) * float(moveList[5]) * (
+            damage = ((((((2 * float(allyList[13])) / 5) + 2) * float(moveList[5]) * (
                     attack / defense)) / 50) + 2) * checkCritical * (
                              random.randint(85, 100) / 100) * stab * effectiveness  # *burn/frostbite
         else:
@@ -183,25 +182,29 @@ class Move:
                     split = line.split(",")
                     lineList.append(split)
                 for i in range(len(lineList)):
-                    print(i)
-                    if lineList[i][0] == moveSelection:
+                    if lineList[i][0] == str(moveSelection):
                         for j in range(len(lineList[i])):
                             moveList.append(lineList[i][j])
 
             print(moveList)
-            lineList = []
 
-            while line != "":
-                line = file.readline()
-                if line != "":
-                    split = line.split(",")
-                    lineList.append(split)
-                for i in range(len(lineList)):
-                    if lineList[i][0] == randomMove:
-                        for j in range(len(lineList[i])):
-                            moveList2.append(lineList[i][j])
+            with open("movedata.txt","r") as file:
+                line = True
+                lineList = []
 
-        return moveList, moveList2
+                while line != "":
+                    line = file.readline()
+                    if line != "":
+                        split = line.split(",")
+                        lineList.append(split)
+                    for i in range(len(lineList)):
+                        if lineList[i][0] == str(randomMove):
+                            for j in range(len(lineList[i])):
+                                moveList2.append(lineList[i][j])
+
+                print(moveList2)
+
+                return moveList, moveList2
 
 
 class Ally:
@@ -287,6 +290,9 @@ while run:
     pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
     pokeList2[4] = enemyPokemon.health(pokeDamage)
     pokeList[4] = allyPokemon.health(pokeDamage2)
+    print(pokeList)
+    print(pokeList2)
+    print("Turn: ", turnCount)
     if pokeList[4] <= 0:
         allyFainted = True
     else:
