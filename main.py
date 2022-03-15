@@ -147,7 +147,7 @@ class Move:
             contact = False
         critical = random.randint(0, 100)
         if critical < 7:
-            checkCritical = True
+            checkCritical = 2
         else:
             checkCritical = 1
         if allyList[2] or allyList[3] == ally[2]:
@@ -230,8 +230,10 @@ class Ally:
     def health(self, damage):
         self.damage = damage
         health = self.hitPoints
+        currentHealth = [health]
         health = int(health) - damage
-        return health
+        currentHealth[0] = health
+        return currentHealth[0]
 
 
 class Enemy:
@@ -257,8 +259,10 @@ class Enemy:
     def health(self, damage):
         self.damage = damage
         health = self.hitPoints
+        currentHealth = [health]
         health = int(health) - damage
-        return health
+        currentHealth[0] = health
+        return currentHealth[0]
 
 
 allyDamage = 0
@@ -267,6 +271,8 @@ allyFainted = False
 enemyFainted = False
 moveList = []
 moveList2 = []
+currentAllyHealth = float(pokeList[4])
+currentEnemyHealth = float(pokeList2[4])
 
 allyPokemon = Ally(surface, pokeList[1], pokeList[2], pokeList[3], pokeList[4], pokeList[5], pokeList[6], pokeList[7],
                    pokeList[8], pokeList[9], pokeList[10], allyDamage)
@@ -288,16 +294,18 @@ while run:
     moveList, moveList2 = turnMove.moveSelection(moveList, moveList2)
     pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
     pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
-    pokeList2[4] = enemyPokemon.health(pokeDamage)
-    pokeList[4] = allyPokemon.health(pokeDamage2)
-    print(pokeList)
-    print(pokeList2)
+    currentEnemyHealth = enemyPokemon.health(pokeDamage)
+    currentAllyHealth = allyPokemon.health(pokeDamage2)
+    print("Your Health: ", currentAllyHealth)
+    print("Enemy Health: ", currentEnemyHealth)
+    print("Your Damage: ", pokeDamage)
+    print("Their Damage: ", pokeDamage2)
     print("Turn: ", turnCount)
-    if pokeList[4] <= 0:
+    if currentAllyHealth <= 0:
         allyFainted = True
     else:
         allyFainted = False
-    if pokeList2[4] <= 0:
+    if currentEnemyHealth <= 0:
         enemyFainted = True
     else:
         enemyFainted = False
