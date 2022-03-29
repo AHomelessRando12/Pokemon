@@ -1,0 +1,21 @@
+1,Vine Whip,grass,physical,25,45,100,1,0,none,0,0,0,0,0
+2,Quick Attack,normal,physical,30,40,100,2,0,none,0,0,0,0,0
+3,Giga Drain,grass,special,10,75,100,1,0,heal,0,0,0,0,0
+4,Poison Powder,poison,status,35,0,75,1,100,poison,0,0,0,0,0
+5,Leaf Storm,grass,special,5,130,90,1,0,none,0,0,-1,0,0
+6,Sludge Bomb,poison,special,10,90,100,1,30,poison,0,0,0,0,0
+7,Scratch,normal,physical,35,40,100,1,0,none,0,0,0,0,0
+8,Ember,fire,special,25,40,100,1,10,burn,0,0,0,0,0
+9,Dragon Claw,dragon,physical,15,80,100,1,0,none,0,0,0,0,0
+10,Fire Fang,fire,physical,15,65,95,1,10,burn,0,0,0,0,0
+11,Blast Burn,fire,special,5,150,90,1,100,recharge,0,0,0,0,0
+12,Fly,flying,physical,15,90,95,1,100,charge,0,0,0,0,0
+13,Water Gun,water,special,25,40,100,1,0,none,0,0,0,0,0
+14,Pound,normal,physical,35,40,100,1,0,none,0,0,0,0,0
+15,Shell Smash,normal,status,15,0,100,1,0,none,2,-1,2,-1,2
+16,Water Pulse,water,special,20,60,100,1,20,confusion,0,0,0,0,0
+17,Ice Beam,ice,special,10,90,100,1,10,frostbite,0,0,0,0,0
+18,Hydro Pump,water,special,5,110,80,1,0,none,0,0,0,0,0
+19,Psychic,psychic,special,10,90,100,1,0,none,0,0,0,-1,0
+20,Earthquake,ground,physical,10,100,100,1,0,none,0,0,0,0,0
+666,Make America Great Again,fire,special,5,110,100,1,0,none,0,0,0,0,0

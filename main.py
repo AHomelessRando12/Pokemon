@@ -50,78 +50,102 @@ type_effectiveness = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1,
                       [1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1, 1],
                       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
-pokemonId = input("Enter the id of the pokemon you want to use: ")
-pokemonLevel = int(input("Enter the level of the pokemon: "))
-enemyLevel = int(input("Enter the level of pokemon you want to fight: "))
-while pokemonLevel > 100:
+
+file = open("allyTeam.txt", "w")
+file.close()
+file = open("enemyTeam.txt", "w")
+file.close()
+
+
+for v in range(6):
+    pokemonId = input("Enter the id of the pokemon you want to use: ")
     pokemonLevel = int(input("Enter the level of the pokemon: "))
-pokeList = []
-with open("pokemondata.txt", "r") as file:
-    line = True
-    lineList = []
-    while line != "":
-        line = file.readline()
-        if line != "":
-            split = line.split(",")
-            lineList.append(split)
-    for i in range(len(lineList)):
-        if lineList[i][0] == pokemonId:
-            for j in range(len(lineList[i])):
-                pokeList.append(lineList[i][j])
-pokeList.append(pokemonLevel)
+    while pokemonLevel > 100:
+        pokemonLevel = int(input("Enter the level of the pokemon: "))
+    pokeList = []
+    with open("pokemonData.txt", "r") as file:
+        line = True
+        lineList = []
+        while line != "":
+            line = file.readline()
+            if line != "":
+                split = line.split(",")
+                lineList.append(split)
+        for i in range(len(lineList)):
+            if lineList[i][0] == pokemonId:
+                for j in range(len(lineList[i])):
+                    pokeList.append(lineList[i][j])
+    pokeList.append(pokemonLevel)
+    pokeList[11] = pokeList[11].strip()
 
-baseHP = float(pokeList[4])
-baseAtk = float(pokeList[5])
-baseDef = float(pokeList[6])
-baseSpAtk = float(pokeList[7])
-baseSpDef = float(pokeList[8])
-baseSpe = float(pokeList[9])
-pokeList[4] = round(((2 * baseHP * pokemonLevel) / 100) + pokemonLevel + 10)
-pokeList[5] = round(((2 * baseAtk * pokemonLevel) / 100) + 5)
-pokeList[6] = round(((2 * baseDef * pokemonLevel) / 100) + 5)
-pokeList[7] = round(((2 * baseSpAtk * pokemonLevel) / 100) + 5)
-pokeList[8] = round(((2 * baseSpDef * pokemonLevel) / 100) + 5)
-pokeList[9] = round(((2 * baseSpe * pokemonLevel) / 100) + 5)
+    baseHP = float(pokeList[4])
+    baseAtk = float(pokeList[5])
+    baseDef = float(pokeList[6])
+    baseSpAtk = float(pokeList[7])
+    baseSpDef = float(pokeList[8])
+    baseSpe = float(pokeList[9])
+    pokeList[4] = round(((2 * baseHP * pokemonLevel) / 100) + pokemonLevel + 10)
+    pokeList[5] = round(((2 * baseAtk * pokemonLevel) / 100) + 5)
+    pokeList[6] = round(((2 * baseDef * pokemonLevel) / 100) + 5)
+    pokeList[7] = round(((2 * baseSpAtk * pokemonLevel) / 100) + 5)
+    pokeList[8] = round(((2 * baseSpDef * pokemonLevel) / 100) + 5)
+    pokeList[9] = round(((2 * baseSpe * pokemonLevel) / 100) + 5)
 
-randomEnemy = str(random.randint(1, 9))
+    with open("allyTeam.txt", "a") as file:
+        for n in range(12):
+            print(pokeList)
+            file.write(str(pokeList[n]) + ",")
+        file.write("\n")
 
-pokeList2 = []
-with open("pokemondata.txt", "r") as file:
-    line = True
-    lineList = []
-    while line != "":
-        line = file.readline()
-        if line != "":
-            split = line.split(",")
-            lineList.append(split)
+for q in range(6):
+    randomEnemy = str(random.randint(1, 493))
+    enemyLevel = int(input("Enter the level of pokemon you want to fight: "))
+    pokeList2 = []
+    with open("pokemonData.txt", "r") as file:
+        line = True
+        lineList = []
+        while line != "":
+            line = file.readline()
+            if line != "":
+                split = line.split(",")
+                lineList.append(split)
         for i in range(len(lineList)):
             if lineList[i][0] == randomEnemy:
                 for j in range(len(lineList[i])):
                     pokeList2.append(lineList[i][j])
+    pokeList2.append(enemyLevel)
 
-baseHPEnemy = float(pokeList2[4])
-baseAtkEnemy = float(pokeList2[5])
-baseDefEnemy = float(pokeList2[6])
-baseSpAtkEnemy = float(pokeList2[7])
-baseSpDefEnemy = float(pokeList2[8])
-baseSpeEnemy = float(pokeList2[9])
-pokeList2[4] = round(((2 * baseHPEnemy * enemyLevel) / 100) + enemyLevel + 10)
-pokeList2[5] = round(((2 * baseAtkEnemy * enemyLevel) / 100) + 5)
-pokeList2[6] = round(((2 * baseDefEnemy * enemyLevel) / 100) + 5)
-pokeList2[7] = round(((2 * baseSpAtkEnemy * enemyLevel) / 100) + 5)
-pokeList2[8] = round(((2 * baseSpDefEnemy * enemyLevel) / 100) + 5)
-pokeList2[9] = round(((2 * baseSpeEnemy * enemyLevel) / 100) + 5)
+    baseHPEnemy = float(pokeList2[4])
+    baseAtkEnemy = float(pokeList2[5])
+    baseDefEnemy = float(pokeList2[6])
+    baseSpAtkEnemy = float(pokeList2[7])
+    baseSpDefEnemy = float(pokeList2[8])
+    baseSpeEnemy = float(pokeList2[9])
+    pokeList2[4] = round(((2 * baseHPEnemy * enemyLevel) / 100) + enemyLevel + 10)
+    pokeList2[5] = round(((2 * baseAtkEnemy * enemyLevel) / 100) + 5)
+    pokeList2[6] = round(((2 * baseDefEnemy * enemyLevel) / 100) + 5)
+    pokeList2[7] = round(((2 * baseSpAtkEnemy * enemyLevel) / 100) + 5)
+    pokeList2[8] = round(((2 * baseSpDefEnemy * enemyLevel) / 100) + 5)
+    pokeList2[9] = round(((2 * baseSpeEnemy * enemyLevel) / 100) + 5)
+    pokeList2[11] = pokeList2[11].strip()
+
+    with open("enemyTeam.txt", "a") as file:
+        for n in range(12):
+            print(pokeList2)
+            file.write(str(pokeList2[n]) + ",")
+        file.write("\n")
 
 print(pokeList)
 print(pokeList2)
 
 
 class Move:
-    def __init__(self, allyList, enemyList, ally, enemy):
+    def __init__(self, allyList, enemyList, ally, enemy, pokeSwitch):
         self.allyList = allyList
         self.enemyList = enemyList
         self.ally = ally
         self.enemy = enemy
+        self.pokeSwitch = pokeSwitch
 
     def Damage(self, allyList, enemyList, ally, enemy):
         self.allyList = allyList
@@ -142,7 +166,7 @@ class Move:
             contact = False
             attack = float(allyList[7])
             defense = float(enemyList[8])
-        elif ally == "status":
+        elif ally[3] == "status":
             moveDamage = False
             contact = False
         critical = random.randint(0, 100)
@@ -155,40 +179,32 @@ class Move:
         else:
             stab = 1
         if moveDamage:
-            damage = ((((((2 * float(allyList[13])) / 5) + 2) * float(moveList[5]) * (
+            damage = ((((((2 * float(allyList[12])) / 5) + 2) * float(ally[5]) * (
                     attack / defense)) / 50) + 2) * checkCritical * (
                              random.randint(85, 100) / 100) * stab * effectiveness  # *burn/frostbite
         else:
             damage = 0
+        print(allyList[1], " used ", ally[1], "!")
+        if checkCritical == 2:
+            print("Critical hit!")
+        if effectiveness == 2 or effectiveness == 4:
+            print("It's super effective!")
+        if effectiveness == 0.5 or effectiveness == 0.25:
+            print("It's not very effective...")
         return damage
 
-    def moveSelection(self, allyList, enemyList):
+    def moveSelection(self, allyList, enemyList, pokeSwitch):
         self.allyList = allyList
         self.enemyList = enemyList
+        self.pokeSwitch = pokeSwitch
 
         moveList = []
         moveList2 = []
 
         randomMove = random.randint(1, 18)
-        moveSelection = int(input("Enter the ID of the move you want to use: "))
-
-        with open("movedata.txt", "r") as file:
-            line = True
-            lineList = []
-
-            while line != "":
-                line = file.readline()
-                if line != "":
-                    split = line.split(",")
-                    lineList.append(split)
-                for i in range(len(lineList)):
-                    if lineList[i][0] == str(moveSelection):
-                        for j in range(len(lineList[i])):
-                            moveList.append(lineList[i][j])
-
-            print(moveList)
-
-            with open("movedata.txt","r") as file:
+        if not pokeSwitch:
+            moveSelection = int(input("Enter the ID of the move you want to use: "))
+            with open("moveData.txt", "r") as file:
                 line = True
                 lineList = []
 
@@ -197,19 +213,40 @@ class Move:
                     if line != "":
                         split = line.split(",")
                         lineList.append(split)
-                    for i in range(len(lineList)):
-                        if lineList[i][0] == str(randomMove):
-                            for j in range(len(lineList[i])):
-                                moveList2.append(lineList[i][j])
+                for i in range(len(lineList)):
+                    if lineList[i][0] == str(moveSelection):
+                        for j in range(len(lineList[i])):
+                            moveList.append(lineList[i][j])
 
-                print(moveList2)
+                moveList[11] = moveList[11].strip()
 
-                return moveList, moveList2
+                print(moveList)
+        if pokeSwitch:
+            moveList = ["0", "switch", "none", "status", "1000000", "0", "100", "10", "0", "None", "0", "0", "0", "0", "0"]
+
+        with open("moveData.txt", "r") as file:
+            line = True
+            lineList = []
+
+            while line != "":
+                line = file.readline()
+                if line != "":
+                    split = line.split(",")
+                    lineList.append(split)
+            for i in range(len(lineList)):
+                if lineList[i][0] == str(randomMove):
+                    for j in range(len(lineList[i])):
+                        moveList2.append(lineList[i][j])
+
+            moveList2[11] = moveList2[11].strip()
+            print(moveList2)
+
+        return moveList, moveList2
 
 
 class Ally:
     def __init__(self, surface, name, type1, type2, hitPoints, attack, defense, specialAttack, specialDefense, speed,
-                 backSprite, damage):
+                 backSprite, damage, currentHealth):
         self.surface = surface
         self.name = name
         self.type1 = type1
@@ -222,23 +259,22 @@ class Ally:
         self.speed = speed
         self.backSprite = "backSprites/" + backSprite
         self.damage = damage
+        self.currentHealth = currentHealth
 
     def draw(self):
         image = pygame.image.load(self.backSprite)
         self.surface.blit(image, (0, 50))
 
-    def health(self, damage):
+    def health(self, damage, currentHealth):
         self.damage = damage
-        health = self.hitPoints
-        currentHealth = [health]
-        health = int(health) - damage
-        currentHealth[0] = health
-        return currentHealth[0]
+        self.currentHealth = currentHealth
+        currentHealth = float(currentHealth) - damage
+        return currentHealth
 
 
 class Enemy:
     def __init__(self, surface, name, type1, type2, hitPoints, attack, defense, specialAttack, specialDefense, speed,
-                 frontSprite, damage):
+                 frontSprite, damage, currentHealth):
         self.surface = surface
         self.name = name
         self.type1 = type1
@@ -251,20 +287,19 @@ class Enemy:
         self.speed = speed
         self.frontSprite = "frontSprites/" + frontSprite
         self.damage = damage
+        self.currentHealth = currentHealth
 
     def draw(self):
         image = pygame.image.load(self.frontSprite)
         self.surface.blit(image, (100, 10))
 
-    def health(self, damage):
+    def health(self, damage, currentHealth):
         self.damage = damage
-        health = self.hitPoints
-        currentHealth = [health]
-        health = int(health) - damage
-        currentHealth[0] = health
-        return currentHealth[0]
+        self.currentHealth = currentHealth
+        currentHealth = float(currentHealth) - damage
+        return currentHealth
 
-
+pokeSwitch = False
 allyDamage = 0
 enemyDamage = 0
 allyFainted = False
@@ -275,9 +310,9 @@ currentAllyHealth = float(pokeList[4])
 currentEnemyHealth = float(pokeList2[4])
 
 allyPokemon = Ally(surface, pokeList[1], pokeList[2], pokeList[3], pokeList[4], pokeList[5], pokeList[6], pokeList[7],
-                   pokeList[8], pokeList[9], pokeList[10], allyDamage)
+                   pokeList[8], pokeList[9], pokeList[10], allyDamage, currentAllyHealth)
 enemyPokemon = Enemy(surface, pokeList2[1], pokeList2[2], pokeList2[3], pokeList2[4], pokeList2[5], pokeList2[6],
-                     pokeList2[7], pokeList2[8], pokeList2[9], pokeList2[11], enemyDamage)
+                     pokeList2[7], pokeList2[8], pokeList2[9], pokeList2[11], enemyDamage, currentEnemyHealth)
 
 turnCount = 0
 run = True
@@ -285,37 +320,135 @@ while run:
     surface.fill(white)
     allyPokemon.draw()
     enemyPokemon.draw()
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    turnMove = Move(pokeList, pokeList2, moveList, moveList2)
-    moveList, moveList2 = turnMove.moveSelection(moveList, moveList2)
-    pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
-    pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
-    currentEnemyHealth = enemyPokemon.health(pokeDamage)
-    currentAllyHealth = allyPokemon.health(pokeDamage2)
+    turnMove = Move(pokeList, pokeList2, moveList, moveList2, pokeSwitch)
+    battleChoice = input("fight or switch: ")
+    if battleChoice == "fight":
+        pokeSwitch = False
+    elif battleChoice == "switch":
+        pokeSwitch = True
+        print(type(pokeSwitch))
+    moveList, moveList2 = turnMove.moveSelection(moveList, moveList2, pokeSwitch)
+    if moveList[1] == "switch":
+        newPokemon = int(input("Enter the number of the line of the pokemon you want to switch to: "))
+        with open("allyTeam.txt", "r") as file:
+            line = file.readlines()[newPokemon - 1:newPokemon]
+            pokeList = line[0].split(",")
+        allyPokemon = Ally(surface, pokeList[1], pokeList[2], pokeList[3], pokeList[4], pokeList[5], pokeList[6],
+                           pokeList[7],
+                           pokeList[8], pokeList[9], pokeList[10], allyDamage, currentAllyHealth)
+        print(pokeList)
+
+    if moveList[7] > moveList2[7]:
+        print("You moved first")
+        pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+        currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+        if currentEnemyHealth < 1:
+            print("you win")
+            enemyFainted = True
+        if not enemyFainted:
+            pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+            currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+            if currentAllyHealth < 1:
+                print("you lose")
+                allyFainted = True
+        if enemyFainted:
+            pokeDamage2 = 0
+
+    elif moveList2[7] < moveList[7]:
+        print("The enemy moved first")
+        pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+        currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+        if currentAllyHealth < 1:
+            print("you lose")
+            allyFainted = True
+        if not allyFainted:
+            pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+            currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+            if currentEnemyHealth < 1:
+                print("you win")
+                enemyFainted = True
+        if allyFainted:
+            pokeDamage = 0
+
+    else:
+        if pokeList[9] > pokeList2[9]:
+            print("You moved first")
+            pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+            currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+            if currentEnemyHealth < 1:
+                print("you win")
+                enemyFainted = True
+            if not enemyFainted:
+                pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+                currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+                if currentAllyHealth < 1:
+                    print("you lose")
+                    allyFainted = True
+            if enemyFainted:
+                pokeDamage2 = 0
+
+        elif pokeList2[9] > pokeList[9]:
+            print("The enemy moved first")
+            pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+            currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+            if currentAllyHealth < 1:
+                print("you lose")
+                allyFainted = True
+            if not allyFainted:
+                pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+                currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+                if currentEnemyHealth < 1:
+                    print("you win")
+                    enemyFainted = True
+            if allyFainted:
+                pokeDamage = 0
+
+        else:
+            randomTurn = random.randint(1,2)
+            if randomTurn == 1:
+                print("You moved first")
+                pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+                currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+                if currentEnemyHealth < 1:
+                    print("you win")
+                    enemyFainted = True
+                if not enemyFainted:
+                    pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+                    currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+                    if currentAllyHealth < 1:
+                        print("you lose")
+                        allyFainted = True
+                if enemyFainted:
+                    pokeDamage2 = 0
+
+            else:
+                print("The enemy moved first")
+                pokeDamage2 = turnMove.Damage(pokeList2, pokeList, moveList2, moveList)
+                currentAllyHealth = allyPokemon.health(pokeDamage2, currentAllyHealth)
+                if currentAllyHealth < 1:
+                    print("you lose")
+                    allyFainted = True
+                if not allyFainted:
+                    pokeDamage = turnMove.Damage(pokeList, pokeList2, moveList, moveList2)
+                    currentEnemyHealth = enemyPokemon.health(pokeDamage, currentEnemyHealth)
+                    if currentEnemyHealth < 1:
+                        print("you win")
+                        enemyFainted = True
+                if allyFainted:
+                    pokeDamage = 0
+
     print("Your Health: ", currentAllyHealth)
     print("Enemy Health: ", currentEnemyHealth)
     print("Your Damage: ", pokeDamage)
     print("Their Damage: ", pokeDamage2)
     print("Turn: ", turnCount)
-    if currentAllyHealth <= 0:
-        allyFainted = True
-    else:
-        allyFainted = False
-    if currentEnemyHealth <= 0:
-        enemyFainted = True
-    else:
-        enemyFainted = False
-    turnCount = turnCount + 1
-    if enemyFainted:
-        print("you win")
-        pygame.quit()
-    elif allyFainted:
-        print("you lose")
-        pygame.quit()
+
+    if allyFainted or enemyFainted:
+        run = False
 
     if not run:
         pygame.quit()

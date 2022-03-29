@@ -1,0 +1,5 @@
+move Template:
+id,name,type,contact,pp,power,accuracy,priority,additionalEffectChance,additionalEffect,atkMod,defMod,spAtkMod,spDefMod,speMod
+
+Pokémon Template:
+id,name,type1,type2,hp,atk,def,spAtk,spDef,spe,backSprite,frontSprite
