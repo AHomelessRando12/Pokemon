@@ -64,19 +64,11 @@ for v in range(6):
         pokemonLevel = int(input("Enter the level of the pokemon: "))
     pokeList = []
     with open("pokemonData.txt", "r") as file:
-        line = True
-        lineList = []
-        while line != "":
-            line = file.readline()
-            if line != "":
-                split = line.split(",")
-                lineList.append(split)
-        for i in range(len(lineList)):
-            if lineList[i][0] == pokemonId:
-                for j in range(len(lineList[i])):
-                    pokeList.append(lineList[i][j])
-    pokeList.append(pokemonLevel)
-    pokeList[11] = pokeList[11].strip()
+        lines = file.readlines()[int(pokemonId) - 1: int(pokemonId)][0]
+        split = lines.split(",")
+        pokeList.extend(split)
+        pokeList[-1] = pokeList[-1].strip()
+        pokeList.append(pokemonLevel)
 
     baseHP = float(pokeList[4])
     baseAtk = float(pokeList[5])
@@ -93,7 +85,6 @@ for v in range(6):
 
     with open("allyTeam.txt", "a") as file:
         for n in range(12):
-            print(pokeList)
             file.write(str(pokeList[n]) + ",")
         file.write("\n")
 
