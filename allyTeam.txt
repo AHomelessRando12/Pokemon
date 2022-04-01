@@ -1,6 +1,1 @@
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
-1,Bulbasaur,grass,poison,12,6,6,6,6,6,bulbasaur.png,bulbasaur_front.png,
+
