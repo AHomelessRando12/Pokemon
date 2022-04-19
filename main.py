@@ -69,7 +69,24 @@ for v in range(6):
         pokeList.extend(split)
         pokeList[-1] = pokeList[-1].strip()
         pokeList.append(pokemonLevel)
-
+    currentMoveList = []
+    for i in range(4):
+        moveChoiceValidity = False
+        while not moveChoiceValidity:
+            moveChoice = input("Enter a move you want to put on your pokemon: ")
+            with open("pokemonData.txt", "r") as file:
+                lines = file.readlines()[int(pokemonId) - 1: int(pokemonId)]
+                lines = lines[0].split(",")
+                if moveChoice in lines[12: -1]:
+                    if moveChoice in currentMoveList[0: -1]:
+                        print("Move already learned")
+                    else:
+                        moveChoiceValidity = True
+                        print("Move Learned")
+                else:
+                    print("This pokemon cannot learn this move")
+        currentMoveList.append(moveChoice)
+    pokeList.extend(currentMoveList)
     baseHP = float(pokeList[4])
     baseAtk = float(pokeList[5])
     baseDef = float(pokeList[6])
@@ -86,25 +103,28 @@ for v in range(6):
     with open("allyTeam.txt", "a") as file:
         for n in range(12):
             file.write(str(pokeList[n]) + ",")
+        for r in range(4):
+            file.write(currentMoveList[r] + ",")
         file.write("\n")
 
 for q in range(6):
-    randomEnemy = str(random.randint(1, 493))
+    intRandomEnemy = random.randint(1,493)
+    randomEnemy = str(intRandomEnemy)
     enemyLevel = int(input("Enter the level of pokemon you want to fight: "))
     pokeList2 = []
     with open("pokemonData.txt", "r") as file:
-        line = True
-        lineList = []
-        while line != "":
-            line = file.readline()
-            if line != "":
-                split = line.split(",")
-                lineList.append(split)
-        for i in range(len(lineList)):
-            if lineList[i][0] == randomEnemy:
-                for j in range(len(lineList[i])):
-                    pokeList2.append(lineList[i][j])
-    pokeList2.append(enemyLevel)
+        lines = file.readlines()[intRandomEnemy - 1: intRandomEnemy][0]
+        split = lines.split(",")
+        pokeList2.extend(split)
+        pokeList2[-1] = pokeList2[-1].strip()
+        pokeList2.append(enemyLevel)
+    currentEnemyMoveList = []
+    for i in range(4):
+        with open("pokemonData.txt", "r") as file:
+            lines = file.readlines()[intRandomEnemy - 1: intRandomEnemy]
+            split = lines[0].split(",")
+            randomEnemyMoveSet = random.randint(12, len(split))
+            currentEnemyMoveList.append(split[randomEnemyMoveSet])
 
     baseHPEnemy = float(pokeList2[4])
     baseAtkEnemy = float(pokeList2[5])
@@ -122,8 +142,9 @@ for q in range(6):
 
     with open("enemyTeam.txt", "a") as file:
         for n in range(12):
-            print(pokeList2)
             file.write(str(pokeList2[n]) + ",")
+        for r in range(4):
+            file.write(currentEnemyMoveList[r] + ",")
         file.write("\n")
 
 print(pokeList)
@@ -144,20 +165,20 @@ class Move:
         self.ally = ally
         self.enemy = enemy
 
-        effectiveness = type_effectiveness[types[ally[2]]][types[enemyList[2]]] * \
-                        type_effectiveness[types[ally[2]]][types[enemyList[3]]]
+        effectiveness = type_effectiveness[types[ally[1]]][types[enemyList[2]]] * \
+                        type_effectiveness[types[ally[1]]][types[enemyList[3]]]
 
-        if ally[3] == "physical":
+        if ally[2] == "physical":
             moveDamage = True
             contact = True
             attack = float(allyList[5])
             defense = float(enemyList[6])
-        elif ally[3] == "special":
+        elif ally[2] == "special":
             moveDamage = True
             contact = False
             attack = float(allyList[7])
             defense = float(enemyList[8])
-        elif ally[3] == "status":
+        elif ally[2] == "status":
             moveDamage = False
             contact = False
         critical = random.randint(0, 100)
@@ -170,7 +191,7 @@ class Move:
         else:
             stab = 1
         if moveDamage:
-            damage = ((((((2 * float(allyList[12])) / 5) + 2) * float(ally[5]) * (
+            damage = ((((((2 * float(allyList[12])) / 5) + 2) * float(ally[4]) * (
                     attack / defense)) / 50) + 2) * checkCritical * (
                              random.randint(85, 100) / 100) * stab * effectiveness  # *burn/frostbite
         else:
@@ -196,18 +217,11 @@ class Move:
         if not pokeSwitch:
             moveSelection = int(input("Enter the ID of the move you want to use: "))
             with open("moveData.txt", "r") as file:
-                line = True
-                lineList = []
-
-                while line != "":
-                    line = file.readline()
-                    if line != "":
-                        split = line.split(",")
-                        lineList.append(split)
-                for i in range(len(lineList)):
-                    if lineList[i][0] == str(moveSelection):
-                        for j in range(len(lineList[i])):
-                            moveList.append(lineList[i][j])
+                lines = file.readlines()[moveSelection - 1: moveSelection][0]
+                split = lines.split(",")
+                moveList.extend(split)
+                moveList[-1] = moveList[-1].strip()
+                print(moveList)
 
                 moveList[11] = moveList[11].strip()
 
@@ -216,20 +230,10 @@ class Move:
             moveList = ["0", "switch", "none", "status", "1000000", "0", "100", "10", "0", "None", "0", "0", "0", "0", "0"]
 
         with open("moveData.txt", "r") as file:
-            line = True
-            lineList = []
-
-            while line != "":
-                line = file.readline()
-                if line != "":
-                    split = line.split(",")
-                    lineList.append(split)
-            for i in range(len(lineList)):
-                if lineList[i][0] == str(randomMove):
-                    for j in range(len(lineList[i])):
-                        moveList2.append(lineList[i][j])
-
-            moveList2[11] = moveList2[11].strip()
+            lines = file.readlines()[randomMove - 1: randomMove][0]
+            split = lines.split(",")
+            moveList2.extend(split)
+            moveList2[-1] = moveList2[-1].strip()
             print(moveList2)
 
         return moveList, moveList2
