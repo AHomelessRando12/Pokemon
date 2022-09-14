@@ -1,1 +1,1 @@
-
+416,Vespiquen,bug,flying,226,149,189,149,189,77,vespiquen.png,vespiquen_front.png,90,Attract,Endure,Ominous Wind,X-Scissor,

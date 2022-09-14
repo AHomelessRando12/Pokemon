@@ -1,1 +1,1 @@
-
+166,Ledian,bug,flying,220,75,105,115,225,175,ledian.png,ledian_front.png,100,Bug Buzz,Psybeam,Knock Off,Air Slash,
