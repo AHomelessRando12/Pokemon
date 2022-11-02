@@ -9,6 +9,54 @@ pygame.display.set_caption("Pokemon Showdown!")
 white = (255, 255, 255)
 black = (0, 0, 0)
 
+types = {"normal": 0,
+         "fire": 1,
+         "water": 2,
+         "electric": 3,
+         "grass": 4,
+         "ice": 5,
+         "fighting": 6,
+         "poison": 7,
+         "ground": 8,
+         "flying": 9,
+         "psychic": 10,
+         "bug": 11,
+         "rock": 12,
+         "ghost": 13,
+         "dragon": 14,
+         "dark": 15,
+         "steel": 16,
+         "fairy": 17,
+         "none": 18
+         }
+
+type_effectiveness = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1, 1],
+                      [1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1, 1],
+                      [1, 2, 0.5, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 1, 1, 1, 1],
+                      [1, 1, 2, 0.5, 0.5, 1, 1, 1, 0, 2, 1, 1, 1, 1, 0.5, 1, 1, 1, 1],
+                      [1, 0.5, 2, 1, 0.5, 1, 1, 0.5, 2, 0.5, 1, 0.5, 2, 1, 0.5, 1, 0.5, 1, 1],
+                      [1, 0.5, 0.5, 1, 2, 0.5, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 0.5, 1, 1],
+                      [2, 1, 1, 1, 1, 2, 1, 0.5, 1, 0.5, 0.5, 0.5, 2, 0, 1, 2, 2, 0.5, 1],
+                      [1, 1, 1, 1, 2, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 0, 2, 1],
+                      [1, 2, 1, 2, 0.5, 1, 1, 2, 1, 0, 1, 0.5, 2, 1, 1, 1, 2, 1, 1],
+                      [1, 1, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5, 1, 1],
+                      [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5, 1, 1],
+                      [1, 0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5, 0.5, 1],
+                      [1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5, 1, 1],
+                      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 1, 1],
+                      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0, 1],
+                      [1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 0.5, 1],
+                      [1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2, 1],
+                      [1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1, 1],
+                      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+
+file = open("allyTeam.txt", "w")
+file.close()
+file = open("enemyTeam.txt", "w")
+file.close()
+
+
 for v in range(1):
     pokemonId = input("Enter the id of the pokemon you want to use: ")
     pokemonLevel = int(input("Enter the level of the pokemon: "))
@@ -61,7 +109,7 @@ for v in range(1):
         file.write("\n")
 
 for q in range(1):
-    intRandomEnemy = random.randint(1, 493)
+    intRandomEnemy = random.randint(1,493)
     randomEnemy = str(intRandomEnemy)
     enemyLevel = int(input("Enter the level of pokemon you want to fight: "))
     pokeList2 = []
@@ -176,19 +224,18 @@ class Move:
             moveSelection = input("Enter the name of the move you want to use: ")
             while not validMove:
                 if moveSelection in ally:
-                    with open("moveData.txt", "r") as file:
+                    with open("moveData.txt","r") as file:
                         for i, selectedMove in enumerate(file):
                             if moveSelection in selectedMove:
                                 moveList.extend(selectedMove.split(","))
                                 validMove = True
                 else:
                     print("That isn't a move you selected")
-                    moveSelection = input("Enter the name of the move you want to use: ")
+                    moveSelection =input("Enter the name of the move you want to use: ")
                     validMove = False
 
         if pokeSwitch:
-            moveList = ["0", "switch", "none", "status", "1000000", "0", "100", "10", "0", "None", "0", "0", "0", "0",
-                        "0"]
+            moveList = ["0", "switch", "none", "status", "1000000", "0", "100", "10", "0", "None", "0", "0", "0", "0", "0"]
 
         enemyMove = enemy[randomMove]
         with open("moveData.txt", "r") as file:
@@ -263,52 +310,9 @@ class Infobox:
 
     def draw(self, health, name, level, height, width):
         pass
-
-
+    
+        
 def setup():
-    types = {"normal": 0,
-             "fire": 1,
-             "water": 2,
-             "electric": 3,
-             "grass": 4,
-             "ice": 5,
-             "fighting": 6,
-             "poison": 7,
-             "ground": 8,
-             "flying": 9,
-             "psychic": 10,
-             "bug": 11,
-             "rock": 12,
-             "ghost": 13,
-             "dragon": 14,
-             "dark": 15,
-             "steel": 16,
-             "fairy": 17,
-             "none": 18
-             }
-    type_effectiveness = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1, 1],
-                          [1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1, 1],
-                          [1, 2, 0.5, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 1, 1, 1, 1],
-                          [1, 1, 2, 0.5, 0.5, 1, 1, 1, 0, 2, 1, 1, 1, 1, 0.5, 1, 1, 1, 1],
-                          [1, 0.5, 2, 1, 0.5, 1, 1, 0.5, 2, 0.5, 1, 0.5, 2, 1, 0.5, 1, 0.5, 1, 1],
-                          [1, 0.5, 0.5, 1, 2, 0.5, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 0.5, 1, 1],
-                          [2, 1, 1, 1, 1, 2, 1, 0.5, 1, 0.5, 0.5, 0.5, 2, 0, 1, 2, 2, 0.5, 1],
-                          [1, 1, 1, 1, 2, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 0, 2, 1],
-                          [1, 2, 1, 2, 0.5, 1, 1, 2, 1, 0, 1, 0.5, 2, 1, 1, 1, 2, 1, 1],
-                          [1, 1, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5, 1, 1],
-                          [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5, 1, 1],
-                          [1, 0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5, 0.5, 1],
-                          [1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5, 1, 1],
-                          [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 1, 1],
-                          [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0, 1],
-                          [1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 0.5, 1],
-                          [1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2, 1],
-                          [1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1, 1],
-                          [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-    file = open("allyTeam.txt", "w")
-    file.close()
-    file = open("enemyTeam.txt", "w")
-    file.close()
     pokeSwitch = False
     allyDamage = 0
     enemyDamage = 0
@@ -316,15 +320,13 @@ def setup():
     enemyFainted = False
     moveList = []
     moveList2 = []
+    currentAllyHealth = float(pokeList[4])
+    currentEnemyHealth = float(pokeList2[4])
 
-currentAllyHealth = float(pokeList[4])
-currentEnemyHealth = float(pokeList2[4])
-allyPokemon = Ally(surface, pokeList[1], pokeList[2], pokeList[3], pokeList[4], pokeList[5], pokeList[6],
-                    pokeList[7], pokeList[8], pokeList[9], pokeList[10], allyDamage, currentAllyHealth)
-enemyPokemon = Enemy(surface, pokeList2[1], pokeList2[2], pokeList2[3], pokeList2[4], pokeList2[5], pokeList2[6],
-                    pokeList2[7], pokeList2[8], pokeList2[9], pokeList2[11], enemyDamage, currentEnemyHealth)
-
-
+    allyPokemon = Ally(surface, pokeList[1], pokeList[2], pokeList[3], pokeList[4], pokeList[5], pokeList[6], pokeList[7],
+                   pokeList[8], pokeList[9], pokeList[10], allyDamage, currentAllyHealth)
+    enemyPokemon = Enemy(surface, pokeList2[1], pokeList2[2], pokeList2[3], pokeList2[4], pokeList2[5], pokeList2[6],
+                     pokeList2[7], pokeList2[8], pokeList2[9], pokeList2[11], enemyDamage, currentEnemyHealth)
 turnCount = 0
 run = True
 while run:
